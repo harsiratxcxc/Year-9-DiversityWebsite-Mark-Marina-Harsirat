@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embracing Diversity - Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800;900&family=Poppins:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    html {
+      overflow-y: scroll;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #d8cfbc;
+      background-image: 
+        radial-gradient(#b8ad98 1.5px, transparent 1.5px),
+        radial-gradient(#b8ad98 1.5px, #d8cfbc 1.5px);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      color: #1a1918;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      margin: 0;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1350px;
+      text-align: center;
+      padding: 2.2rem 1.5rem;
+      background-color: #f0eae1;
+      border: 3px solid #b8ad98;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, #556b2f, #d97706, #2563eb, #9333ea, #e11d48);
+    }
+    .logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #2c251e;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0px #e3dad0;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    nav a {
+      font-family: 'Outfit', sans-serif;
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 10px;
+      background-color: #4a3e3d;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    nav a.active,
+    nav a:hover {
+      background-color: #556b2f;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Side Tab Switcher */
+    .side-region-btn {
+      position: fixed;
+      left: 0;
+      top: 45%;
+      transform: translateY(-50%);
+      z-index: 999;
+      background-color: #4a3e3d;
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 14px 10px;
+      border-radius: 0 16px 16px 0;
+      border: 3px solid #b8ad98;
+      border-left: none;
+      box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transition: all 0.25s ease;
+    }
+    .side-region-btn:hover {
+      background-color: #556b2f;
+      padding-left: 16px;
+      box-shadow: 6px 10px 24px rgba(0, 0, 0, 0.25);
+    }
+    .side-region-btn span.icon {
+      writing-mode: horizontal-tb;
+      font-size: 1.2rem;
+    }
+
+    /* Full-screen Blurred Backdrop Modals */
+    .modal-overlay {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(44, 37, 30, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: #f7f4ee;
+      border: 3px solid #b8ad98;
+      border-radius: 22px;
+      padding: 1.8rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+      position: relative;
+      transform: translateY(15px);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-card {
+      transform: translateY(0);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: #f0eae1;
+      border: 1px solid #b8ad98;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #2c251e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+    .modal-close-btn:hover {
+      background-color: #e11d48;
+      color: #ffffff;
+      border-color: #be123c;
+    }
+    .modal-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #2c251e;
+      margin-bottom: 0.3rem;
+    }
+    .modal-sub {
+      font-size: 0.88rem;
+      color: #4a3e3d;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+    }
+
+    /* Grid Inside Roots Modal */
+    .roots-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .roots-card {
+      background: #ffffff;
+      border: 2px solid #b8ad98;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .roots-card img {
+      width: 100%;
+      height: 55px;
+      object-fit: cover;
+      display: block;
+    }
+    .roots-card span {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #2c251e;
+      padding: 6px 2px;
+      text-align: center;
+      line-height: 1.1;
+      width: 100%;
+    }
+    .roots-card:hover {
+      border-color: #556b2f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    }
+    .roots-card.active {
+      border-color: #556b2f;
+      box-shadow: 0 0 0 2px #556b2f;
+    }
+    .roots-card.active span {
+      background-color: #556b2f;
+      color: #ffffff;
+    }
+
+    .modal-footer {
+      margin-top: 1.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid #b8ad98;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .dont-show-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #4a3e3d;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+    .dont-show-container input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #556b2f;
+      cursor: pointer;
+    }
+    .deselect-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed #4a3e3d;
+      color: #4a3e3d;
+      padding: 8px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .deselect-btn:hover {
+      background: #f0eae1;
+      color: #e11d48;
+      border-color: #e11d48;
+    }
+
+    /* Confetti Popup Modal Elements */
+    .shoutout-card {
+      text-align: center;
+      overflow: hidden;
+      border: 3px solid #556b2f;
+    }
+    .confetti-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .shoutout-content {
+      position: relative;
+      z-index: 2;
+    }
+    .shoutout-header {
+      margin-bottom: 1rem;
+    }
+    .shoutout-header h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #556b2f;
+    }
+    .greeting-pill {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 800;
+      background-color: #f0eae1;
+      color: #2c251e;
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 1px solid #b8ad98;
+    }
+    .shoutout-body p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #2c251e;
+      margin-bottom: 1rem;
+    }
+    .shoutout-body ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background-color: #ffffff;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 2px solid #b8ad98;
+      text-align: left;
+      margin-bottom: 1.2rem;
+    }
+    .shoutout-body ul li {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #4a3e3d;
+    }
+    .continue-btn {
+      background-color: #556b2f;
+      color: #ffffff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 10px 24px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(85, 107, 47, 0.3);
+      transition: all 0.25s ease;
+    }
+    .continue-btn:hover {
+      background-color: #435424;
+      transform: translateY(-2px);
+    }
+
+    /* Main Grid Layout */
+    .layout-grid {
+      width: 100%;
+      max-width: 1350px;
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      align-items: start;
+    }
+
+    /* Side Cards */
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .preview-card {
+      background-color: #f7f4ee;
+      border: 3px solid #b8ad98;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .preview-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+    }
+    .preview-card.sports { border-color: #d97706; }
+    .preview-card.food { border-color: #e11d48; }
+    .preview-card.music { border-color: #9333ea; }
+    .preview-card.comm { border-color: #2563eb; }
+
+    .preview-hero-art {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .preview-card.sports .preview-hero-art { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+    .preview-card.food .preview-hero-art { background: linear-gradient(135deg, #ffe4e6, #fecdd3); }
+    .preview-card.music .preview-hero-art { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); }
+    .preview-card.comm .preview-hero-art { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+
+    .preview-icon {
+      font-size: 3.5rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+    .preview-card-body {
+      padding: 1.2rem;
+    }
+    .preview-card-body h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .preview-card.sports h3 { color: #b45309; }
+    .preview-card.food h3 { color: #be123c; }
+    .preview-card.music h3 { color: #6b21a8; }
+    .preview-card.comm h3 { color: #1d4ed8; }
+
+    .preview-card-body p {
+      font-size: 0.88rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.45;
+    }
+    .card-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background-color: #e3dad0;
+      color: #2c251e;
+    }
+
+    /* Main Center Card */
+    main {
+      width: 100%;
+      padding: 2.2rem 2rem;
+      background-color: #f7f4ee;
+      border: 3px solid #b8ad98;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+    
+    h1.page-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #2c251e;
+      margin-bottom: 1.2rem;
+      border-bottom: 3px solid #b8ad98;
+      padding-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .badge {
+      font-size: 0.85rem;
+      background-color: #556b2f;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      line-height: 1.65;
+      font-size: 0.98rem;
+      margin-bottom: 1.2rem;
+      color: #2c251e;
+    }
+
+    blockquote.hook {
+      background: #f0eae1;
+      border-left: 8px solid #556b2f;
+      padding: 1.3rem 1.5rem;
+      margin-bottom: 1.6rem;
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.6;
+      border-radius: 0 16px 16px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    /* Accordions */
+    .acc-item {
+      margin-bottom: 14px;
+    }
+    .acc-button {
+      width: 100%;
+      text-align: left;
+      background-color: #f0eae1;
+      border: 2px solid #b8ad98;
+      color: #2c251e;
+      padding: 16px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .acc-button:hover {
+      background-color: #e3dad0;
+      border-color: #556b2f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .acc-button span.icon {
+      font-size: 1.3rem;
+      color: #556b2f;
+      font-weight: 800;
+      background: #ffffff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #b8ad98;
+    }
+    .acc-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-out, padding 0.35s ease;
+      background-color: #ffffff;
+      border: 2px solid #b8ad98;
+      border-top: none;
+      border-radius: 0 0 12px 12px;
+      padding: 0 20px;
+    }
+    .acc-panel.open {
+      padding: 18px 20px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1100px) {
+      .layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .side-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 650px) {
+      .side-column {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-text">Embracing Diversity</div>
+    <nav>
+      <ul>
+        <li><a href="index2.html" class="active">🏠 Home</a></li>
+        <li><a href="Sport and Athletic.html">⚽ Sport & Physical Activity</a></li>
+        <li><a href="Food.html">🍲 Food</a></li>
+        <li><a href="Music.html">🎵 Music</a></li>
+        <li><a href="Communication.html">💬 Communication</a></li>
+        <li><a href="references.html">📚 References</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Side Toggle Trigger -->
+  <button class="side-region-btn" onclick="toggleRootsModal(true)">
+    <span class="icon">🌍</span>
+    <span>Your Roots</span>
+  </button>
+
+  <!-- 1. Selection Overlay Modal -->
+  <div class="modal-overlay" id="rootsModal" onclick="checkOuterClick(event, 'rootsModal')">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="toggleRootsModal(false)">&times;</button>
+      <div class="modal-title">🌱 Your Cultural Roots</div>
+      <div class="modal-sub">Optionally choose your region to see your custom shoutout popup, or press <strong>✕</strong> to dive right into the article:</div>
+      
+      <div class="roots-grid">
+        <div class="roots-card" onclick="selectRegion(this, 'Africa')">
+          <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=300&q=80" alt="Africa landscape">
+          <span>Africa</span>
+        </div>
+
+        <div class="roots-card" onclick="selectRegion(this, 'Asia')">
+          <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=300&q=80" alt="Asia pagoda">
+          <span>Asia</span>
+        </div>
+
+        <div class="roots-card" onclick="selectRegion(this, 'Europe')">
+          <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=300&q=80" alt="Europe landscape">
+          <span>Europe</span>
+        </div>
+
+        <div class="roots-card" onclick="selectRegion(this, 'North America')">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80" alt="North America landscape">
+          <span>N. America</span>
+        </div>
+
+        <div class="roots-card" onclick="selectRegion(this, 'South America')">
+          <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=300&q=80" alt="South America landscape">
+          <span>S. America</span>
+        </div>
+
+        <div class="roots-card" onclick="selectRegion(this, 'Australia')">
+          <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=300&q=80" alt="Australia landscape">
+          <span>Australia</span>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <label class="dont-show-container">
+          <input type="checkbox" id="dontShowCB" onchange="toggleDontShowPreference(this.checked)">
+          <span>Don't show initial pop-up on future visits</span>
+        </label>
+        <button class="deselect-btn" onclick="deselectRegion()">✕ Reset / Deselect Region</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Shoutout & Confetti Popup Modal -->
+  <div class="modal-overlay" id="shoutoutModal" onclick="checkOuterClick(event, 'shoutoutModal')">
+    <div class="modal-card shoutout-card">
+      <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+      <button class="modal-close-btn" onclick="toggleShoutoutModal(false)">&times;</button>
+      
+      <div class="shoutout-content">
+        <div class="shoutout-header">
+          <h3 id="shoutoutTitle">Shoutout!</h3>
+          <span class="greeting-pill" id="shoutoutGreeting">Greeting</span>
+        </div>
+        
+        <div class="shoutout-body">
+          <p id="shoutoutMsg"></p>
+          <ul>
+            <li id="shoutoutFact1">✨ Cultural Highlight</li>
+            <li id="shoutoutFact2">🎵 Shared Connection</li>
+          </ul>
+        </div>
+
+        <button class="continue-btn" onclick="toggleShoutoutModal(false)">🎉 Explore Content</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-grid">
+    
+    <!-- Left Side Previews -->
+    <aside class="side-column">
+      <div class="preview-card sports">
+        <div class="preview-hero-art">
+          <span class="preview-icon">🏀🏆⚽</span>
+        </div>
+        <div class="preview-card-body">
+          <h3>Sport & Physical Activity</h3>
+          <p>Explore how athletic arenas break global boundaries and unite cultures through fair play and shared sportsmanship.</p>
+          <span class="card-tag">Module 01</span>
+        </div>
+      </div>
+
+      <div class="preview-card food">
+        <div class="preview-hero-art">
+          <span class="preview-icon">🌮🍜🍛</span>
+        </div>
+        <div class="preview-card-body">
+          <h3>Food & Cuisine</h3>
+          <p>Discover how unique spices, traditional recipes, and culinary rituals preserve cultural history across tables.</p>
+          <span class="card-tag">Module 02</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Center Content -->
+    <main>
+      <h1 class="page-title">
+        Why Diversity?
+        <span class="badge">Core Hub</span>
+      </h1>
+
+      <blockquote class="hook">
+        "Imagine a world, you wake up in a dull bed, put on dull clothes, walk down a dull road to a duller restaurant, the food is a dull shade of grey, seasoning is a mere campfire tale and the waiter looks exactly like you. Now let me wake you up from this nightmare and introduce you to the very term that calms these raging storms: diversity."
+      </blockquote>
+
+      <p>
+        Diversity is excellently defined as the practice or quality of including or involving people from a range of different social and ethnic backgrounds and of different genders, sexual orientations, etc.
+      </p>
+      <p>
+        The concept of diversity holds a significant importance because it is the summit which unites different perspectives, experiences, and identities, making room for innovation, empathy, and more facilitated communities.
+      </p>
+
+      <p style="font-size: 0.95rem; font-weight: 700; color: #556b2f; margin-top: 1.8rem; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+        🔍 <span>Click any topic below to explore deeper:</span>
+      </p>
+
+      <div class="acc-item">
+        <button class="acc-button" onclick="toggleAcc(this)">
+          ⚖️ Equity and Inclusion <span class="icon">+</span>
+        </button>
+        <div class="acc-panel">
+          <p style="margin-bottom: 0.8rem;">Under the umbrella of diversity sits two cornerstones, equity and inclusion. Equity is the quality of being fair and just, especially in a way that takes account of and seeks to address existing inequalities. This is not to be confused with the concept of equality which gives everyone the same share, not catering for what they truly need.</p>
+          <p style="margin-bottom: 0;">Inclusion is the action or state of including or of being included within a group or structure. Nevertheless, inclusion can be conditional or unconditional. In the topic of race, many races are faced by lack of inclusion by others solely due to their ethnic background or sexual preferences.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-button" onclick="toggleAcc(this)">
+          🚧 Past & Continuing Barriers <span class="icon">+</span>
+        </button>
+        <div class="acc-panel">
+          <p style="margin-bottom: 0.8rem;"><strong>1. Stereotypes & Prejudice:</strong> Unfair assumptions that erase individual identity and create toxic cultural biases.</p>
+          <p style="margin-bottom: 0;"><strong>2. Systemic Discrimination:</strong> Ongoing historical obstacles in opportunities, rights, and spaces that hold marginalized groups back.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-button" onclick="toggleAcc(this)">
+          🌟 Why Value Differences? <span class="icon">+</span>
+        </button>
+        <div class="acc-panel">
+          <p style="margin-bottom: 0;">Respecting differences breaks down fear of the unknown. When unique lived experiences are honored, communities become far more creative, resilient, and connected.</p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Right Side Previews -->
+    <aside class="side-column">
+      <div class="preview-card music">
+        <div class="preview-hero-art">
+          <span class="preview-icon">🪘🎸🎷</span>
+        </div>
+        <div class="preview-card-body">
+          <h3>Music & Rhythm</h3>
+          <p>Experience how global rhythms, traditional instruments, and melodies connect hearts beyond language barriers.</p>
+          <span class="card-tag">Module 03</span>
+        </div>
+      </div>
+
+      <div class="preview-card comm">
+        <div class="preview-hero-art">
+          <span class="preview-icon">🗣️🌐📜</span>
+        </div>
+        <div class="preview-card-body">
+          <h3>Communication</h3>
+          <p>Learn how unique languages, dialects, body language, and expressions shape how we understand one another.</p>
+          <span class="card-tag">Module 04</span>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    const regionData = {
+      'Africa': {
+        greeting: 'Jambo / Sawubona! 🌍',
+        title: 'Shoutout to Africa!',
+        msg: 'Welcome! Africa’s incredible tapestry of over 3,000 distinct ethnic groups and 2,000 languages shapes so much of global art, music, and human history.',
+        fact1: '🗣️ Home to the world’s most linguistically diverse communities.',
+        fact2: '🪘 Ancestral birthplace of global rhythms, polyrhythms, and storytelling traditions.'
+      },
+      'Asia': {
+        greeting: 'Nǐ Hǎo / Namaste! 🌏',
+        title: 'Shoutout to Asia!',
+        msg: 'Welcome! Representing over 60% of the human family, Asia’s vast landscapes bring together ancient philosophies, rich culinary arts, and groundbreaking modern innovations.',
+        fact1: '🍜 Origin of world-defining cuisines, spices, and tea traditions.',
+        fact2: '📜 Home to hundreds of distinct scripts, written alphabets, and historical philosophies.'
+      },
+      'Europe': {
+        greeting: 'Bonjour / Ciao! 🌍',
+        title: 'Shoutout to Europe!',
+        msg: 'Welcome! Europe’s crossroads of cultures, classic architecture, and artistic movements have continuously evolved through centuries of global exchange.',
+        fact1: '🎨 Birthplace of iconic classical art, literature, and architectural movements.',
+        fact2: '⚽ Deep-rooted sports culture and passionate local community traditions.'
+      },
+      'North America': {
+        greeting: 'Hello / ¡Hola! 🌎',
+        title: 'Shoutout to North America!',
+        msg: 'Welcome! From Indigenous ancestral lands to dynamic urban centers, North America stands as a vibrant melting pot of global diaspora and modern creativity.',
+        fact1: '🎷 Birthplace of Jazz, Blues, Hip-Hop, and modern cross-genre music.',
+        fact2: '🌐 Dynamic blend of multicultural traditions from every corner of the planet.'
+      },
+      'South America': {
+        greeting: '¡Hola! / Olá! 🌎',
+        title: 'Shoutout to South America!',
+        msg: 'Welcome! Blessed with unmatched biodiversity, warm hospitality, and expressive celebrations, South America teaches the world how to honor community and life.',
+        fact1: '💃 Home to world-renowned festivals, Samba, Tango, and vibrant street art.',
+        fact2: '🌿 Deep Indigenous wisdom honoring nature and ecological harmony.'
+      },
+      'Australia': {
+        greeting: 'G\'day / Kaya! 🪃',
+        title: 'Shoutout to Australia!',
+        msg: 'Welcome! Australia is home to the world’s oldest continuous living cultures—Aboriginal and Torres Strait Islander peoples—alongside a thriving modern multicultural society.',
+        fact1: '🎨 Over 65,000 years of Indigenous art, oral storytelling, and deep connection to land.',
+        fact2: '🌊 Unique coastal lifestyle, diverse wildlife, and inclusive community spirit.'
+      }
+    };
+
+    // Auto-check on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const dontShow = localStorage.getItem('hideRootsModal');
+
+      if (dontShow === 'true') {
+        document.getElementById('dontShowCB').checked = true;
+      } else {
+        toggleRootsModal(true);
+      }
+    });
+
+    function toggleAcc(btn) {
+      const panel = btn.nextElementSibling;
+      const icon = btn.querySelector('.icon');
+      
+      if (panel.classList.contains('open')) {
+        panel.classList.remove('open');
+        panel.style.maxHeight = null;
+        icon.innerText = '+';
+      } else {
+        panel.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 40 + "px";
+        icon.innerText = '−';
+      }
+    }
+
+    function toggleRootsModal(show) {
+      const modal = document.getElementById('rootsModal');
+      if (show) {
+        modal.classList.add('open');
+      } else {
+        modal.classList.remove('open');
+      }
+    }
+
+    function toggleShoutoutModal(show) {
+      const modal = document.getElementById('shoutoutModal');
+      if (show) {
+        modal.classList.add('open');
+        launchConfetti();
+      } else {
+        modal.classList.remove('open');
+      }
+    }
+
+    function checkOuterClick(e, modalId) {
+      if (e.target.id === modalId) {
+        document.getElementById(modalId).classList.remove('open');
+      }
+    }
+
+    function toggleDontShowPreference(isChecked) {
+      if (isChecked) {
+        localStorage.setItem('hideRootsModal', 'true');
+      } else {
+        localStorage.removeItem('hideRootsModal');
+      }
+    }
+
+    function selectRegion(cardElement, regionKey) {
+      const allCards = document.querySelectorAll('.roots-card');
+      allCards.forEach(c => c.classList.remove('active'));
+      cardElement.classList.add('active');
+
+      localStorage.setItem('userSelectedRegion', regionKey);
+      populateShoutout(regionKey);
+      
+      // Close roots modal & fire the shoutout confetti popup
+      toggleRootsModal(false);
+      setTimeout(() => {
+        toggleShoutoutModal(true);
+      }, 200);
+    }
+
+    function populateShoutout(regionKey) {
+      const data = regionData[regionKey];
+      if (!data) return;
+
+      document.getElementById('shoutoutTitle').innerText = data.title;
+      document.getElementById('shoutoutGreeting').innerText = data.greeting;
+      document.getElementById('shoutoutMsg').innerText = data.msg;
+      document.getElementById('shoutoutFact1').innerText = data.fact1;
+      document.getElementById('shoutoutFact2').innerText = data.fact2;
+    }
+
+    function deselectRegion() {
+      const allCards = document.querySelectorAll('.roots-card');
+      allCards.forEach(c => c.classList.remove('active'));
+      
+      localStorage.removeItem('userSelectedRegion');
+      toggleRootsModal(false);
+    }
+
+    /* Light, Canvas Confetti Animation */
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+
+      const particles = [];
+      const colors = ['#556b2f', '#d97706', '#2563eb', '#9333ea', '#e11d48'];
+
+      for (let i = 0; i < 60; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 7 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedY: Math.random() * 3 + 2,
+          speedX: Math.random() * 2 - 1,
+          rotation: Math.random() * 360
+        });
+      }
+
+      let animationFrame;
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rotation += 2;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+
+        if (particles.some(p => p.y < canvas.height)) {
+          animationFrame = requestAnimationFrame(render);
+        }
+      }
+      render();
+    }
+  </script>
+
+</body>
+</html>
