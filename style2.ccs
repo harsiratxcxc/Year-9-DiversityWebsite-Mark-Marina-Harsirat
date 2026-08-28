@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--page-bg, #f7f5f0);
+  color: var(--text-color, #2d3748);
+}
+
+header {
+  background-color: var(--header-bg, #4a5568);
+  color: #f7f5f0;
+  padding: 2.5rem 1rem 1.5rem;
+  text-align: center;
+  border-bottom: 4px solid var(--accent-color, #8b9d83);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+
+nav a {
+  color: #f7f5f0;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.12);
+  transition: all 0.25s ease;
+}
+
+nav a:hover {
+  background-color: var(--accent-color, #8b9d83);
+}
+
+main {
+  flex: 1;
+  max-width: 950px;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.intro {
+  background-color: var(--card-bg, #ffffff);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.intro h2 {
+  margin-bottom: 0.5rem;
+  color: #334155;
+}
+
+/* Card Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  border-top: 5px solid #ccc;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+/* Individual Aesthetic Accent Borders for Diversity */
+.sports-card { border-color: #788d87; } /* Sage */
+.food-card   { border-color: #d09a76; } /* Soft Terracotta */
+.music-card  { border-color: #92829d; } /* Muted Dusk */
+.comm-card   { border-color: #6b8a99; } /* Dusty Blue */
+.ref-card    { border-color: #a3a3a3; } /* Warm Slate */
+
+footer {
+  background-color: var(--header-bg, #4a5568);
+  color: #f7f5f0;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
